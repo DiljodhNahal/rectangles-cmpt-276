@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="description" content="Assignment 2, CMPT 276"/>
+    <meta name="author" content="Diljodh Nahal"/>
+
+    <title>Rectangles | Assignment 2</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css"/>
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="/stylesheets/main.css" />
+
+  </head>
+
+  <body>
+    <!-- Modal -->
+    <div class="modal" id="createModal" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Create New Rectangle</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form method="post" action="/create">
+              <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" id="name" name="name" required>
+              </div>
+              <div class="form-group">
+                <label for="color">Color</label>
+                <select class="form-control" id="color" name="color" required>
+                  <option selected value="red">Red</option>
+                  <option value="green">Green</option>
+                  <option value="yellow">Yellow</option>
+                  <option value="blue">Blue</option>
+                  <option value="pink">Pink</option>
+                  <option value="purple">Purple</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="height">Height</label>
+                <input type="number" class="form-control" id="height" name="height" min="50" max="500" required>
+              </div>
+              <div class="form-group">
+                <label for="width">Width</label>
+                <input type="number" class="form-control" id="width" name="width" min="50" max="500" required>
+              </div>
+              <button type="submit" class="btn btn-primary">Create</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="headerContainer">
+      <strong id="headerText">Rectangles</strong><br>
+    </div>
+
+    <div id="buttonContainer">
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createModal">Create New Rectangle</button>
+    </div>
+
+    <div id="tableContainer">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col"></th>
+            <th scope="col">Name</th>
+            <th scope="col">Color</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% results.forEach(function(row) { %>
+            <tr>
+              <th scope="row"><%= row.id %></th>
+              <td><a target="_blank" href="/info/<%= row.id %>"><u><%= row.name %></u></a></td>
+              <td><%= row.color %></td>
+            </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Bootstrap & JQuery -->
+    <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+
+
+    <!-- Custom JS -->
+    <script src="javascript/main.js"></script>
+  </body>
+
+</html>

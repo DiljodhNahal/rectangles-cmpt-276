@@ -1,0 +1,30 @@
+body {
+    padding: 16px;
+}
+
+#headerContainer {
+    margin-bottom: 16px;
+}
+
+#headerText {
+    font-size: 24px;
+}
+
+#tableContainer {
+    max-width: 500px;
+}
+
+#buttonContainer {
+    margin-bottom: 16px;
+}
+
+#rectangle {
+    margin-bottom: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#rectangleName {
+    font-size: 24px;
+}
