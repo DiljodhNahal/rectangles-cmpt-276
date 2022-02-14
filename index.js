@@ -6,11 +6,11 @@ let app = express()
 
 const { Pool } = require('pg');
 let pool = new Pool({
-    connectionString: process.env.DATABASE_URL || "postgres://postgres:DilPG@localhost/rectangles",
-    ssl: {
-        rejectUnauthorized: false
-    }
+    connectionString: process.env.DATABASE_URL || "postgres://postgres:DilPG@localhost/rectangles"
 })
+
+if (process.env.DATABASE_URL)
+    pool.ssl = {rejectUnauthorized: false}
 
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(express.json())
@@ -22,7 +22,7 @@ app.set('view engine', 'ejs')
 app.get('/', async (req, res) => {
 
     try {
-        const results = await pool.query(`SELECT * FROM rectangles`)
+        const results = await pool.query(`SELECT * FROM rectangles ORDER BY id ASC`)
         const data = {results: results.rows}
         res.render('pages/index', data)
     } catch (error) {
