@@ -4,13 +4,20 @@ const PORT = process.env.PORT || 5000
 
 let app = express()
 
-const { Pool } = require('pg');
-let pool = new Pool({
-    connectionString: process.env.DATABASE_URL || "postgres://postgres:DilPG@localhost/rectangles"
-})
+const { Pool } = require('pg')
 
-if (process.env.DATABASE_URL)
-    pool.ssl = {rejectUnauthorized: false}
+let pool
+
+if (process.env.DATABASE_URL) {
+    pool = new Pool({
+        connectionString: process.env.DATABASE_URL,
+        ssl: {rejectUnauthorized: false}
+    })
+} else {
+    pool = new Pool({
+        connectionString: "postgres://postgres:DilPG@localhost/rectangles"
+    })
+}
 
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(express.json())
@@ -72,6 +79,22 @@ app.post('/update/:id', async (req, res) => {
             `
         )
         res.redirect(`/info/${req.params.id}`)
+    } catch (error) {
+        res.send(error)
+    }
+
+})
+
+app.post('/delete/:id', async (req, res) => {
+
+    try {
+        await pool.query(
+            `
+            DELETE FROM rectangles
+            WHERE id = ${req.params.id}
+            `
+        )
+        res.redirect('/')
     } catch (error) {
         res.send(error)
     }
