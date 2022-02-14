@@ -6,7 +6,10 @@ let app = express()
 
 const { Pool } = require('pg');
 let pool = new Pool({
-    connectionString: process.env.DATABASE_URL || "postgres://postgres:DilPG@localhost/rectangles"
+    connectionString: process.env.DATABASE_URL || "postgres://postgres:DilPG@localhost/rectangles",
+    ssl: {
+        rejectUnauthorized: false
+    }
 })
 
 app.use(express.static(path.join(__dirname, 'public')))
